@@ -8,6 +8,7 @@ test how easy is to directly log something to cloudwatch
 2. Save then in the `.env` file  
 
     ```
+    AWS_REGION='us-east-1'
     AWS_ACCESS_KEY_ID='XXXXXXXXXXXXXXX'
     AWS_SECRET_ACCESS_KEY='XXXXXXXXXXXXXXX'
     ```
