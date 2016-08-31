@@ -1,9 +1,13 @@
 {
   "name": "test-node-cloudwatch",
   "version": "0.0.0",
-  "private": true,  
+  "private": true,
   "scripts": {
     "prestart": "npm i",
-    "start": "node main.js"
+    "start": "node main.js",
+    "dev": "nf run node main.js"
+  },
+  "dependencies": {
+    "foreman": "^2.0.0"
   }
 }
