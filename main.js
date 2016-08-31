@@ -34,6 +34,30 @@ async.series([
 
 function createLogGroup(callback){
     var params = {
+        limit: 0,
+        logGroupNamePrefix: logGroupName
+    };
+    cloudwatchlogs.describeLogGroups(params, function(err, data) {
+        if (err) {
+            callback();
+            return;
+        }
+
+        var indexOfExistingGroup = (data.logGroups || []).indexOf((g) => {
+            return g.logGroupName === logGroupName;
+        });
+
+        if (indexOfExistingGroup >= 0){
+            callback(null);
+        }
+        else{
+            createNonExistentLogGroup(callback);
+        }
+    });
+}
+
+function createNonExistentLogGroup(callback) {
+    var params = {
         logGroupName: logGroupName
     };
     cloudwatchlogs.createLogGroup(params, handleAwsResult(callback));
