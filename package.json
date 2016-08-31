@@ -8,6 +8,7 @@
     "dev": "nf run node main.js"
   },
   "dependencies": {
+    "async": "^2.0.1",
     "foreman": "^2.0.0"
   }
 }

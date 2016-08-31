@@ -1,5 +1,6 @@
 var os = require("os");
 var AWS = require('aws-sdk');
+var async = require("async");
 
 console.log("Starting...", new Date());
 
@@ -13,28 +14,64 @@ AWS.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
+var logGroupName = "test-node-cloudwatch";
+var logStreamName = os.hostname();
+
 var cloudwatchlogs = new AWS.CloudWatchLogs();
 
-var params = {
-  logEvents: [
-    {
-      message: 'Sample Log Line',
-      timestamp: new Date().getTime()
-    }
-  ],
-  logGroupName: 'test-node-cloudwatch',
-  logStreamName: os.hostname(),
-  sequenceToken: null
-};
-
-
-cloudwatchlogs.putLogEvents(params, function(err, data) {
+async.series([
+    createLogGroup,
+    createLogStream,
+    logSomething("sample log line ")
+], (err) => {
     if (err){
-        console.log(err, err.stack); // an error occurred
+        console.log(err, err.stack);
+        return;
     }
-    else{
-        console.log(data);           // successful response
-    }
-});
 
-console.log("Finishing...", new Date());
+    console.log("Finishing...", new Date());
+})
+
+function createLogGroup(callback){
+    var params = {
+        logGroupName: logGroupName
+    };
+    cloudwatchlogs.createLogGroup(params, handleAwsResult(callback));
+}
+
+function createLogStream(callback){
+    var params = {
+        logGroupName: logGroupName,
+        logStreamName: logStreamName
+    };
+    cloudwatchlogs.createLogStream(params, handleAwsResult(callback));
+}
+
+function logSomething(logLine){
+    return (callback) => {
+        var params = {
+            logEvents: [
+                {
+                  message: logLine,
+                  timestamp: new Date().getTime()
+                }
+            ],
+            logGroupName: logGroupName,
+            logStreamName: logStreamName,
+            sequenceToken: null
+        };
+        cloudwatchlogs.putLogEvents(params, handleAwsResult(callback));
+    }
+}
+
+function handleAwsResult(callback){
+    return (err, data) => {
+        if (err){
+            callback(err);
+            return;
+        }
+
+        console.log(data);
+        callback(null);
+    }
+}
