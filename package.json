@@ -5,7 +5,8 @@
   "scripts": {
     "prestart": "npm i",
     "start": "node main.js",
-    "dev": "nf run node main.js"
+    "dev": "nf run node main.js",
+    "debug": "nf run node-debug main.js"
   },
   "dependencies": {
     "async": "^2.0.1",

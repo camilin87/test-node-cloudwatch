@@ -34,7 +34,6 @@ async.series([
 
 function createLogGroup(callback){
     var params = {
-        limit: 0,
         logGroupNamePrefix: logGroupName
     };
     cloudwatchlogs.describeLogGroups(params, function(err, data) {
@@ -42,6 +41,9 @@ function createLogGroup(callback){
             callback();
             return;
         }
+
+        console.log("LogGroups");
+        console.log(data.logGroups);
 
         var indexOfExistingGroup = (data.logGroups || []).indexOf((g) => {
             return g.logGroupName === logGroupName;
@@ -63,7 +65,37 @@ function createNonExistentLogGroup(callback) {
     cloudwatchlogs.createLogGroup(params, handleAwsResult(callback));
 }
 
-function createLogStream(callback){
+function createLogStream(callback) {
+    var params = {
+        logGroupName: logGroupName,
+        logStreamNamePrefix: logStreamName
+    };
+    cloudwatchlogs.describeLogStreams(params, function(err, data) {
+        if (err){
+            callback(err);
+            return;
+        }
+
+        console.log("LogStreams");
+        console.log(data.logStreams);
+
+        var indexOfExistingLogStream = (data.logStreams || []).indexOf((g) => {
+            console.log("g.logStreamName", g.logStreamName, "logStreamName", logStreamName);
+            return g.logStreamName === logStreamName;
+        });
+
+        console.log("indexOfExistingLogStream", indexOfExistingLogStream, "logStreamName", logStreamName);
+
+        if (indexOfExistingLogStream >= 0){
+            callback(null);
+        }
+        else {
+            createNonExistentLogStream(callback);
+        }
+    });
+}
+
+function createNonExistentLogStream(callback){
     var params = {
         logGroupName: logGroupName,
         logStreamName: logStreamName
