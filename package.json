@@ -1,0 +1,9 @@
+{
+  "name": "test-node-cloudwatch",
+  "version": "0.0.0",
+  "private": true,  
+  "scripts": {
+    "prestart": "npm i",
+    "start": "node main.js"
+  }
+}
