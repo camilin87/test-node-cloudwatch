@@ -1,6 +1,7 @@
 var os = require("os");
 var AWS = require('aws-sdk');
 var async = require("async");
+var StdOutFixture = require('fixture-stdout');
 
 console.log("Starting...", new Date());
 
@@ -26,6 +27,7 @@ async.series([
     createLogGroup,
     createLogStream,
     readNextSequenceToken,
+    cofigureStdOutputHooks,
     logSomething("sample log line1"),
     logSomething("sample log line2")
 ], (err) => {
@@ -115,7 +117,7 @@ function readNextSequenceToken(callback) {
     });
 }
 
-function logSomething(logLine){
+function logSomethingToCloudWatch(logLine){
     return (callback) => {
         var params = {
             logEvents: [
@@ -150,6 +152,26 @@ function handleAwsResult(callback){
         }
 
         console.log(data);
+        callback(null);
+    }
+}
+
+function cofigureStdOutputHooks(callback) {
+    new StdOutFixture().capture(stdWriteHook);
+    new StdOutFixture({stream: process.stderr}).capture(stdWriteHook);
+
+    callback(null);
+}
+
+function stdWriteHook(string, encoding, fd) {
+    logSomethingToCloudWatch(string)((err, data) => {});
+
+    return true;
+}
+
+function logSomething(logLine){
+    return (callback) => {
+        console.log(logLine);
         callback(null);
     }
 }
