@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "sample": "nf run node sample.js",
-    "debugsample": "nf run node-debug sample.js"
+    "debugsample": "nf run node-debug sample.js",
+
+    "redirect": "node simple-writer.js"
   },
   "dependencies": {
     "async": "^2.0.1",
