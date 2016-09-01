@@ -42,14 +42,11 @@ function createLogGroup(callback){
             return;
         }
 
-        console.log("LogGroups");
-        console.log(data.logGroups);
-
-        var indexOfExistingGroup = (data.logGroups || []).indexOf((g) => {
+        var groupAlreadyExists = (data.logGroups || []).find((g) => {
             return g.logGroupName === logGroupName;
         });
 
-        if (indexOfExistingGroup >= 0){
+        if (groupAlreadyExists){
             callback(null);
         }
         else{
@@ -76,17 +73,11 @@ function createLogStream(callback) {
             return;
         }
 
-        console.log("LogStreams");
-        console.log(data.logStreams);
-
-        var indexOfExistingLogStream = (data.logStreams || []).indexOf((g) => {
-            console.log("g.logStreamName", g.logStreamName, "logStreamName", logStreamName);
-            return g.logStreamName === logStreamName;
+        var logStreamAlreadyExists = (data.logStreams || []).find((s) => {
+            return s.logStreamName === logStreamName;
         });
 
-        console.log("indexOfExistingLogStream", indexOfExistingLogStream, "logStreamName", logStreamName);
-
-        if (indexOfExistingLogStream >= 0){
+        if (logStreamAlreadyExists){
             callback(null);
         }
         else {
