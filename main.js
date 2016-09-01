@@ -128,8 +128,6 @@ function logSomething(logLine){
             sequenceToken: nextSequenceToken.value
         };
 
-        console.log("logSomething", params);
-
         cloudwatchlogs.putLogEvents(params, handleAwsResult(callback));
     }
 }
