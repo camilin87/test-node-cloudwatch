@@ -6,7 +6,7 @@
     "sample": "nf run node sample.js",
     "debugsample": "nf run node-debug sample.js",
 
-    "redirect": "(node simple-writer.js) | (node log-forwarder.js)"
+    "redirect": "(node simple-writer.js) 2>&1 | (node log-forwarder.js)"
   },
   "dependencies": {
     "async": "^2.0.1",
