@@ -12,3 +12,11 @@ test how easy is to directly log something to cloudwatch
     AWS_ACCESS_KEY_ID='XXXXXXXXXXXXXXX'
     AWS_SECRET_ACCESS_KEY='XXXXXXXXXXXXXXX'
     ```
+
+3. Delete existing group names that match our criteria  
+
+    ```sh
+    aws logs describe-log-groups --log-group-name-prefix "test-node-cloudwatch"
+    aws logs delete-log-group --log-group-name "test-node-cloudwatch"
+    aws logs describe-log-groups --log-group-name-prefix "test-node-cloudwatch"
+    ```
