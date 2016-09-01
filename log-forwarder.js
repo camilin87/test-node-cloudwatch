@@ -1,4 +1,5 @@
 var readline = require('readline');
+
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -8,3 +9,5 @@ var rl = readline.createInterface({
 rl.on('line', function(line){
     console.log("F: " + line);
 })
+
+console.log("F_AWS_REGION", process.env.AWS_REGION)
