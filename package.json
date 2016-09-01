@@ -6,7 +6,7 @@
     "sample": "nf run node sample.js",
     "debugsample": "nf run node-debug sample.js",
 
-    "simple-writer": "node simple-writer.js",
+    "simple-writer": "nf run node simple-writer.js",
     "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (node log-forwarder.js)"
   },
   "dependencies": {
