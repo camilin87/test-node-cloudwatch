@@ -3,10 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "npm i",
-    "start": "node main.js",
-    "dev": "nf run node main.js",
-    "debug": "nf run node-debug main.js"
+    "sample": "nf run node sample.js",
+    "debugsample": "nf run node-debug sample.js"
   },
   "dependencies": {
     "async": "^2.0.1",
