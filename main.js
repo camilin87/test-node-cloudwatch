@@ -16,12 +16,16 @@ AWS.config.update({
 
 var logGroupName = "test-node-cloudwatch";
 var logStreamName = os.hostname();
+var nextSequenceToken = {
+    value: null
+};
 
 var cloudwatchlogs = new AWS.CloudWatchLogs();
 
 async.series([
     createLogGroup,
     createLogStream,
+    readNextSequenceToken,
     logSomething("sample log line ")
 ], (err) => {
     if (err){
@@ -94,6 +98,22 @@ function createNonExistentLogStream(callback){
     cloudwatchlogs.createLogStream(params, handleAwsResult(callback));
 }
 
+function readNextSequenceToken(callback) {
+    var params = {
+        logGroupName: logGroupName,
+        logStreamNamePrefix: logStreamName
+    };
+    cloudwatchlogs.describeLogStreams(params, function(err, data) {
+        if (err){
+            callback(err);
+            return;
+        }
+
+        nextSequenceToken.value = data.logStreams[0].uploadSequenceToken;
+        callback(null);
+    });
+}
+
 function logSomething(logLine){
     return (callback) => {
         var params = {
@@ -105,8 +125,11 @@ function logSomething(logLine){
             ],
             logGroupName: logGroupName,
             logStreamName: logStreamName,
-            sequenceToken: null
+            sequenceToken: nextSequenceToken.value
         };
+
+        console.log("logSomething", params);
+
         cloudwatchlogs.putLogEvents(params, handleAwsResult(callback));
     }
 }
