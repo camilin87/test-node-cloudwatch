@@ -26,7 +26,8 @@ async.series([
     createLogGroup,
     createLogStream,
     readNextSequenceToken,
-    logSomething("sample log line ")
+    logSomething("sample log line1"),
+    logSomething("sample log line2")
 ], (err) => {
     if (err){
         console.log(err, err.stack);
@@ -128,7 +129,16 @@ function logSomething(logLine){
             sequenceToken: nextSequenceToken.value
         };
 
-        cloudwatchlogs.putLogEvents(params, handleAwsResult(callback));
+        cloudwatchlogs.putLogEvents(params, (err, data) => {
+            if (err){
+                callback(err);
+                return;
+            }
+
+            nextSequenceToken.value = data.nextSequenceToken;
+
+            callback(null);
+        });
     }
 }
 
