@@ -7,7 +7,7 @@
     "debugsample": "nf run node-debug sample.js",
 
     "simple-writer": "node simple-writer.js",
-    "redirect": "(npm run simple-writer) 2>&1 | (node log-forwarder.js)"
+    "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (node log-forwarder.js)"
   },
   "dependencies": {
     "async": "^2.0.1",
