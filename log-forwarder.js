@@ -10,4 +10,8 @@ rl.on('line', function(line){
     console.log("F: " + line);
 })
 
+rl.on('close', function(line){
+    console.log("F_CLOSE");
+})
+
 console.log("F_AWS_REGION", process.env.AWS_REGION)
