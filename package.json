@@ -7,7 +7,8 @@
     "debugsample": "nf run node-debug sample.js",
 
     "simple-writer": "nf run node simple-writer.js",
-    "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder.js)"
+    "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder.js)",
+    "redirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node node_modules/aws-cloudwatch-forwarder/main.js)"
   },
   "dependencies": {
     "async": "^2.0.1",
