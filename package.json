@@ -9,13 +9,19 @@
     "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder.js)",
     "redirectrx": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder-rx.js)",
     "preredirect2": "rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
-    "redirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node node_modules/aws-cloudwatch-forwarder/main.js)"
+    "redirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node node_modules/aws-cloudwatch-forwarder/main.js)",
+    "predebugredirect2": "rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
+    "debugredirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node-debug node_modules/aws-cloudwatch-forwarder/main.js)"
   },
   "dependencies": {
     "async": "^2.0.1",
     "aws-cloudwatch-forwarder": "file:../aws-cloudwatch-forwarder",
     "fixture-stdout": "^0.2.1",
     "foreman": "^2.0.0",
-    "rx": "^4.1.0"
+    "rx": "^4.1.0",
+    "the-promise-factory": "^1.0.0"
+  },
+  "devDependencies": {
+    "node-inspector": "^0.12.8"
   }
 }
