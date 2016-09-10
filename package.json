@@ -8,7 +8,7 @@
     "simple-writer": "nf run node simple-writer.js",
     "redirect": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder.js)",
     "redirectrx": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node log-forwarder-rx.js)",
-    "preredirect2": "rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
+    "preredirect2": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "redirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node node_modules/aws-cloudwatch-forwarder/main.js)",
     "predebugredirect2": "rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "debugredirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node-debug node_modules/aws-cloudwatch-forwarder/main.js)"
