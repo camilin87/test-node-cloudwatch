@@ -13,7 +13,8 @@
     "predebugredirect2": "rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "debugredirect2": "set -o pipefail; (npm run simple-writer) 2>&1 | (nf run node-debug node_modules/aws-cloudwatch-forwarder/main.js)",
 
-    "http": "http-server"
+    "prehttp": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
+    "http": "set -o pipefail; (http-server) 2>&1 | (nf run node node_modules/aws-cloudwatch-forwarder/main.js)"
   },
   "dependencies": {
     "async": "^2.0.1",
