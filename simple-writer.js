@@ -2,13 +2,15 @@ console.log("starting...", new Date());
 
 console.log("AWS_REGION", process.env.AWS_REGION)
 
-for (var i = 0; i < 100000; i++){
+var max_messages = 100000
+
+for (var i = 0; i < max_messages; i++){
     console.log("l ", i);
 }
 
 setTimeout(() => {
 
-    for (var i = 0; i < 100000; i++){
+    for (var i = 0; i < max_messages; i++){
         console.log("f ", i);
     }
 
