@@ -3,9 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prestart": "npm i",
     "start": "nf run node simple-writer.js",
+
+    "preredirect2": "npm i",
     "redirect2": "set -o pipefail; (npm start) 2>&1 | (nf run node ./node_modules/.bin/aws-cloudwatch-forwarder)",
+
     "debugredirect2": "set -o pipefail; (npm start) 2>&1 | (nf run node-debug ./node_modules/.bin/aws-cloudwatch-forwarder)",
+
+    "prehttp": "npm i",
     "http": "set -o pipefail; (http-server) 2>&1 | (nf run node ./node_modules/.bin/aws-cloudwatch-forwarder)"
   },
   "dependencies": {
