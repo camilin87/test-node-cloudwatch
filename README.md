@@ -1,5 +1,5 @@
 # test-node-cloudwatch  
-test how easy is to directly log something to cloudwatch
+Test project to forward logs to cloudwatch using [aws-cloudwatch-forwarder](https://www.npmjs.com/package/aws-cloudwatch-forwarder)  
 
 ## Setup  
 
@@ -11,6 +11,8 @@ test how easy is to directly log something to cloudwatch
     AWS_REGION='us-east-1'
     AWS_ACCESS_KEY_ID='XXXXXXXXXXXXXXX'
     AWS_SECRET_ACCESS_KEY='XXXXXXXXXXXXXXX'
+    FC_AWS_LOG_GROUP_NAME='test-node-cloudwatch'
+    FCG_RETRY_COUNT=3
     ```
 
 3. Delete existing group names that match our criteria  
@@ -20,3 +22,7 @@ test how easy is to directly log something to cloudwatch
     aws logs delete-log-group --log-group-name "test-node-cloudwatch"
     aws logs describe-log-groups --log-group-name-prefix "test-node-cloudwatch"
     ```
+
+## Execution  
+
+Run `npm run redirect2` to forward logs a command line program output to Cloudwatch  
