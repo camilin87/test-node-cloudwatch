@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "aws-cloudwatch-forwarder": "0.0.1-beta2",
+    "aws-cloudwatch-forwarder": "0.0.1-beta3",
     "fixture-stdout": "^0.2.1",
     "foreman": "^2.0.0",
     "http-server": "^0.9.0",
