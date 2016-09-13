@@ -25,4 +25,6 @@ Test project to forward logs to cloudwatch using [aws-cloudwatch-forwarder](http
 
 ## Execution  
 
-Run `npm run redirect2` to forward logs a command line program output to Cloudwatch  
+Run `npm run redirect2` to forward a command line output to Cloudwatch  
+
+Run `npm run http2` to forward a web server output to Cloudwatch  
