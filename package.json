@@ -3,21 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "npm i",
+    "prestart": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "start": "nf run node simple-writer.js",
 
-    "preredirect2": "npm i",
+    "preredirect2": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "redirect2": "set -o pipefail; (npm start) 2>&1 | (nf run node ./node_modules/.bin/aws-cloudwatch-forwarder)",
+
+    "preredirect3": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
+    "redirect3": "nf run node ./node_modules/.bin/aws-cloudwatch-forwarder-simple npm start",
 
     "debugredirect2": "set -o pipefail; (npm start) 2>&1 | (nf run node-debug ./node_modules/.bin/aws-cloudwatch-forwarder)",
 
-    "prehttp": "npm i",
+    "prehttp": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
     "http": "set -o pipefail; (http-server -p 3000) 2>&1 | (nf run node ./node_modules/.bin/aws-cloudwatch-forwarder)",
+
+    "prehttp2": "rm *debug.log* & rm -R node_modules/aws-cloudwatch-forwarder/ & npm i",
+    "http2": "nf run node ./node_modules/.bin/aws-cloudwatch-forwarder-simple 'http-server -p 3000'",
+
     "debughttp": "set -o pipefail; (http-server -p 3000) 2>&1 | (nf run node-debug ./node_modules/.bin/aws-cloudwatch-forwarder)"
   },
   "dependencies": {
     "async": "^2.0.1",
-    "aws-cloudwatch-forwarder": "0.0.1-beta5",
+    "aws-cloudwatch-forwarder": "file:../aws-cloudwatch-forwarder",
     "fixture-stdout": "^0.2.1",
     "foreman": "^2.0.0",
     "http-server": "^0.9.0",
