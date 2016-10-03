@@ -6,13 +6,13 @@
     "prestart": "npm i",
     "start": "nf run node simple-writer.js",
     "preredirect2": "npm i",
-    "redirect2": "nf run node ./node_modules/.bin/aws-cloudwatch-forwarder 'npm start'",
+    "redirect2": "nf run aws-cloudwatch-forwarder 'npm start'",
     "predebugredirect2": "npm i",
-    "debugredirect2": "nf run node-debug ./node_modules/.bin/aws-cloudwatch-forwarder 'npm start'",
+    "debugredirect2": "nf run node-debug aws-cloudwatch-forwarder 'npm start'",
     "prehttp": "npm i",
-    "http": "nf run node ./node_modules/.bin/aws-cloudwatch-forwarder 'http-server -p 3000'",
+    "http": "nf run aws-cloudwatch-forwarder 'http-server -p 3000'",
     "predebughttp": "npm i",
-    "debughttp": "nf run node-debug ./node_modules/.bin/aws-cloudwatch-forwarder 'http-server -p 3000'"
+    "debughttp": "nf run node-debug aws-cloudwatch-forwarder 'http-server -p 3000'"
   },
   "dependencies": {
     "async": "^2.0.1",
